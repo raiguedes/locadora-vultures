@@ -1,1 +1,227 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
+#include <locale.h>
 
+//typedef nome do tipo de dado
+//struct variável especial que contém diversas outras variáveis normalmente de tipos diferentes
+//definição da struct do cliente
+typedef struct filme //Estrutura feita para o filmes
+{
+    int identificador;
+    int ano;
+    char titulo[100];
+    char genero[100];
+
+}Tfilme[100];
+
+typedef struct cliente  //Estrutura feita para o clientes
+{
+    int idcliente;
+    char nome[100];
+
+}Tcliente[100];
+
+//Variáveis utilizadas(GLOBAIS)
+int res;
+int i=0;
+int qtd_filmes = 0;
+int qtd_clientes = 0;
+int escolha;
+Tfilme filme;
+Tcliente cliente;
+
+//Criando a função para exibir Menu Principal
+void menuPrincipal(){
+
+	printf(" [1]  Menu Filme\n");
+	printf(" [2]  Menu Cliente\n");
+	printf(" [4]  SAIR\n");
+
+    int gg;
+
+    scanf("%d",&gg);
+
+	switch(gg){
+
+		case 1:
+		    system("cls");
+            menuFilme();
+		break;
+
+		case 2:
+            system("cls");
+            menuCliente();
+		break;
+		case 4:
+            break;
+        default:
+		printf("Opção digitada invalida tente novamente! \n");
+		menuPrincipal();
+        break;
+	}
+
+}
+
+//função criada para o Menu Filme
+void menuFilme(){
+
+	printf("Bem vindo ao Menu de filmes!\n");
+
+	printf(" [1] - Cadastrar\n");
+	printf(" [2] - Listar\n");
+	printf(" [3] - Consultar\n");
+	printf(" [4] - Vizualizar\n");
+	printf(" [5] - Atualizar\n");
+	printf(" [6] - Remover\n");
+	printf(" [7] - <- Voltar ao Menu Principal\n");
+	printf(" [0] - SAIR\n");
+
+    scanf("%d",&escolha);
+
+    switch(escolha){
+
+        case 1:
+            system("cls");
+            cadastrarFilme();
+            break;
+
+        case 2:
+            system("cls");
+             listarFilme();
+        break;
+
+        case 7:
+            system("cls");
+            menuPrincipal();
+            break;
+
+        case 0:
+            printf("Volte Sempre!\n");
+            printf("Volte Sempre!\n");
+            break;
+        default:
+            printf("Opcao invalida");
+            menuFilme();
+
+    }
+
+
+
+}
+
+//Função feita para exibir a listar filmes
+void listarFilme(){
+
+    for(qtd_filmes = 0;filme[qtd_filmes].identificador != 0; qtd_filmes++){
+
+        printf("ID: %d\n",filme[qtd_filmes].identificador);
+        printf("Titulo: %s\n",filme[qtd_filmes].titulo);
+        printf("Ano de lancamento: %d\n",filme[qtd_filmes].ano);
+        printf("Genero: %s\n\n",filme[qtd_filmes].genero);
+    }
+    menuFilme();
+}
+
+//função utilizada para a listar clientes
+void listarCliente(){
+
+    for(qtd_clientes = 0;cliente[qtd_clientes].idcliente != 0; qtd_clientes++){
+
+        printf("ID: %d\n",cliente[qtd_clientes].idcliente);
+        printf("Nome: %s\n",cliente[qtd_clientes].nome);
+    }
+    menuCliente();
+}
+
+//função feita para cadastrar os filme
+void cadastrarFilme(){
+
+
+    do{
+
+        printf("Digite o identificador do filme: \n");
+        scanf("%d",&filme[qtd_filmes].identificador);
+        printf("Digite o titulo do filme: \n");
+        scanf("%s",&filme[qtd_filmes].titulo);
+        printf("Digite o ano de producao do filme: \n");
+        scanf("%d",&filme[qtd_filmes].ano);
+        printf("Digite o genero do filme: \n");
+        scanf("%s",&filme[qtd_filmes].genero);
+        printf(" ----- FILME CADASTRADO -----\n");
+        printf("Digite 1 e cadastre um novo filme ou 2 para voltar ao menu.\n");
+        scanf("%d",&res);
+        ++qtd_filmes;
+
+        }while (res == 1);
+            system("cls");
+            menuFilme();
+
+}
+
+void cadastrarCliente(){
+
+    do{
+        printf("Digite o ID do cliente\n");
+        scanf("%d",&cliente[qtd_clientes].idcliente);
+        printf("Digite o nome do cliente\n");
+        scanf("%s",&cliente[qtd_clientes].nome);
+        printf(" -- CLIENTE CADASTRADO --\n");
+        printf("Digite 1 e cadastre um novo cliente ou 2 para voltar ao menu.\n");
+        scanf("%d",&res);
+        ++qtd_clientes;
+
+    }while (res == 1);
+            system("cls");
+            menuCliente();
+
+}
+
+//função criada para exibir o Menu Cliente
+void menuCliente(){
+
+	printf("Bem vindo ao Menu de clientes!\n");
+
+	printf(" [1]  Cadastrar\n");
+	printf(" [2]  Listar\n");
+	printf(" [3]  Consultar\n");
+	printf(" [4]  Vizualizar\n");
+	printf(" [5]  Atualizar\n");
+	printf(" [6]  Remover\n");
+	printf(" [7]  <- Voltar ao Menu Principal\n");
+	printf(" [0]  SAIR\n");
+
+	scanf("%d",&escolha);
+
+    switch(escolha){
+
+        case 1:
+            system("cls");
+            cadastrarCliente();
+            break;
+        case 2:
+            system("cls");
+            listarCliente();
+            break;
+        case 7:
+            system("cls");
+            menuPrincipal();
+            break;
+        case 0:
+            system("cls");
+            printf("Volte Sempre!");
+            printf("Volte Sempre!");
+            break;
+        default:
+            printf("Opção inválida!\n\n");
+            menuCliente();
+
+    }
+
+}
+
+int main(){
+    menuPrincipal();
+
+}
